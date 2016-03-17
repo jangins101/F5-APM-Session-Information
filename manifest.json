@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+
+    "name": "F5 APM URL Decoder",
+    "description": "This extension will unmask the F5 Hex-Encoded URL used by APM",
+    "version": "1.0",
+    "icons": { "128": "icon.png" },
+    
+    // The pageAction needs this background code to handle events with the windows/tabs
+    "background": { "scripts": ["background.js"] },
+    
+    // Content scripts can be specified for specific URL styles. Here we have a known APM style.
+    "content_scripts": [
+        { "matches": ["https://*/f5-w-*"], "js": ["contentscript.js"] }
+    ],
+    
+    "page_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html",
+        "default_title": "Decode URL"
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "declarativeContent"
+    ]
+    //"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self';"
+}
