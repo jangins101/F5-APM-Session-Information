@@ -14,3 +14,6 @@ Currently, this extension is not in the Chrome App Store, but you can sideload i
   * Click the `Load unpacked extension` button and select the folder that contains the source
 * Sub-Method 2: Load the *crx* file
   * From the file system, click and drag the `.crx` file onto the extension page to begin the installation.
+
+
+Once you have completed the installation, you will notice the F5 logo grayed simewhere beside the address bar. The icon is only enabled on sites whose url address contain `f5-w-` (denoting an APM encoded url).
