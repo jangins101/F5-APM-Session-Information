@@ -8,8 +8,6 @@ function checkUrl(tabId) {
     });
 }
 
-
-chrome.tabs.onCreated.addListener(function(tab)             { checkUrl(tab.Id); });
 chrome.tabs.onUpdated.addListener(function(tabId)           { checkUrl(tabId); });
 chrome.tabs.onSelectionChanged.addListener(function(tabId)  { checkUrl(tabId); });
 chrome.tabs.onActivated.addListener(function(info)          { checkUrl(info.tabId); });
