@@ -17,3 +17,6 @@ Currently, this extension is not in the Chrome App Store, but you can sideload i
 
 
 Once you have completed the installation, you will notice the F5 logo grayed simewhere beside the address bar. The icon is only enabled on sites whose url address contain `f5-w-` (denoting an APM encoded url).
+
+
+**NOTE: Sorry for the ugly logo. I didn't want to reuse the F5 logo. If anyone would like to create a logo, please do. it would be greatly appreciated.**
