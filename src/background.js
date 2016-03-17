@@ -8,17 +8,11 @@ function checkUrl(tabId) {
     });
 }
 
-chrome.tabs.onUpdated.addListener(function(tabId, change, tab) {
-    checkUrl(tabId);
-});
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId, info) {
-    checkUrl(tabId);
-});
-
-chrome.tabs.onActivated.addListener(function(tabId, info) {
-    checkUrl(tabId);
-});
+chrome.tabs.onCreated.addListener(function(tab)             { checkUrl(tab.Id); });
+chrome.tabs.onUpdated.addListener(function(tabId)           { checkUrl(tabId); });
+chrome.tabs.onSelectionChanged.addListener(function(tabId)  { checkUrl(tabId); });
+chrome.tabs.onActivated.addListener(function(info)          { checkUrl(info.tabId); });
 
 // Ensure the current selected tab is set up.
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

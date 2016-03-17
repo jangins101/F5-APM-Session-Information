@@ -20,9 +20,6 @@
         "default_title": "Decode URL"
     },
     "permissions": [
-        "tabs",
-        "activeTab",
-        "declarativeContent"
+        "tabs"
     ]
-    //"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self';"
 }
