@@ -8,7 +8,7 @@ Example:
 # Installation instructions
 Currently, this extension is not in the Chrome App Store, but you can sideload it into Chrome.
 
-* Navigate to [chrome://extensions](chrome://extensions) [adsf](http://google.com)
+* Navigate to `chrome://extensions`
 * Ensure that the `Developer mode` checkbox is enabled
 * Sub-Method 1: Load unpacked extension
   * Click the `Load unpacked extension` button and select the folder that contains the source
