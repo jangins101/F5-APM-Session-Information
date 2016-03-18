@@ -9,33 +9,43 @@ document.addEventListener('DOMContentLoaded', function() {
     debugger;
     // Act on the current tab
     chrome.tabs.getSelected(null, function(tab) {
-        debugger;
+        //alert(tab);
+        //debugger;
         var url = tab.url;
+        console.log('URL: ' + tab.url);
+        console.log(tab);
         
-        if (url.indexOf("/f5-w-" >= 0)) {            
-            var matches = url.match(/f5-w-(.*?)\$\$(\/.*)/);
+        // Show the decoded APM url
+        var matches = tab.url.match(/f5-w-(.*?)\$\$(\/.*)/);
+        if (matches) {
+            // Show the APM section (decoding the urls);
+            document.getElementById("apm").style.display = "block";
+            
             var data = {
                 url: url,
                 hostEncoded: matches[1],
                 host: hex2a(matches[1]),
                 uri: matches[2]
-            };            
-            document.getElementById("badUrl").style.display = "none";
-            document.getElementById("goodUrl").style.display = "block";
+            };
+            
             document.getElementById("host").innerHTML = data.host;
             document.getElementById("uri").innerHTML = data.uri;
             document.getElementById("url").innerHTML = "<a target='_blank' href='" + data.host + data.uri + "'>" + data.host + data.uri + "</a>";
-            
-            chrome.cookies.getAll({url: url}, function(cookies) {
-                var html = "";
-                for(var i=0;i<cookies.length;i++) {
-                    html += "<strong>" + cookies[i].name + "</strong>: " + cookies[i].value + "<br />";
-                }
-                document.getElementById("sid").innerHTML = html;
-            });
-        } else {
-            document.getElementById("badUrl").style.display = "block";
-            document.getElementById("goodUrl").style.display = "none";
         }
+        
+        // List the cookies for this domain
+        chrome.cookies.getAll({url: tab.url}, function(cookies) {
+            //console.log(cookies);
+            //debugger;
+            // Show the cookies section
+            if (cookies) document.getElementById("cookies").style.display = "block";
+            
+            // Build out the list of cookies and values
+            var html = "";
+            for(var i=0;i<cookies.length;i++) {
+                html += "<strong>" + cookies[i].name + " <em>(" + cookies[i].domain + ")</em></strong>: " + cookies[i].value + "<br />";
+            }
+            document.getElementById("sid").innerHTML = html;
+        });
     });
 }, false);

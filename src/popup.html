@@ -1,20 +1,20 @@
 <!doctype html>
 <html>
     <head>
-        <title>F5 APM URL Decoder</title>
+        <title>F5 APM Information</title>
         <script src="popup.js"></script>
         <link rel="stylesheet" href="popup.css" type="text/css" />
     </head>
     <body>
-        <h2>F5 APM URL Decoder</h2>
-        <div id="badUrl" style="display:none;">
-            This URL is not an F5 encoded url
-        </div>
-        <div id="goodUrl" style="display:none;">
+        <h2>F5 APM Information</h2>
+        <div id="apm" style="display:none;">
+            <h3>APM Rewriter Information</h3>
             <div><label>Internal hostname:</label><span id="host"></span></div>
             <div><label>Internal uri:</label><span id="uri"></span></div>
             <div><label>Internal link:</label><span id="url"></span></div>
             <hr />
+        </div>
+        <div id="cookies" style="display:none;">
             <div><label>Cookies:</label><span id="sid"></span></div>
         </div>        
     </body>
