@@ -8,6 +8,18 @@ function checkUrl(tabId) {
     });
 }
 
+// When the extension is installed or upgraded ...
+chrome.runtime.onInstalled.addListener(function() {
+    // Replace all rules ...
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+        // With a new rule ...
+        chrome.declarativeContent.onPageChanged.addRules([{
+            conditions: [ new chrome.declarativeContent.PageStateMatcher({ pageUrl: { pathPrefix: '/f5-w-' } }) ],
+            actions: [ new chrome.declarativeContent.ShowPageAction() ]
+        }]);
+    });
+});
+
 chrome.tabs.onUpdated.addListener(function(tabId)           { checkUrl(tabId); });
 chrome.tabs.onSelectionChanged.addListener(function(tabId)  { checkUrl(tabId); });
 chrome.tabs.onActivated.addListener(function(info)          { checkUrl(info.tabId); });

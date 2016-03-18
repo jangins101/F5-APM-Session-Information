@@ -20,6 +20,9 @@
         "default_title": "Decode URL"
     },
     "permissions": [
-        "tabs"
+        "tabs",
+        "declarativeContent",
+        "cookies",
+        "https://*/*"
     ]
 }
