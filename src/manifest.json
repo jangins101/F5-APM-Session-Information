@@ -7,11 +7,16 @@
     "icons": { "128": "icon.png" },
     
     // The pageAction needs this background code to handle events with the windows/tabs
-    "background": { "scripts": ["background.js"] },
+    "background": { 
+        "scripts": ["background.js"] 
+    },
     
     // Content scripts can be specified for specific URL styles. Here we have a known APM style.
     "content_scripts": [
-        { "matches": ["https://*/f5-w-*"], "js": ["contentscript.js"] }
+        { 
+            "matches": ["https://*/f5-w-*$$/*"], 
+            "js": ["contentscript.js"] 
+        }
     ],
     
     "page_action": {
@@ -23,6 +28,6 @@
         "tabs",
         "declarativeContent",
         "cookies",
-        "https://*/*"
+        "https://*/f5-w-*$$/*"
     ]
 }
