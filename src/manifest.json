@@ -11,22 +11,14 @@
         "scripts": ["background.js"] 
     },
     
-    // Content scripts can be specified for specific URL styles. Here we have a known APM style.
-    "content_scripts": [
-        { 
-            "matches": ["https://*/*"], 
-            "js": ["contentscript.js"] 
-        }
-    ],
-    
     "page_action": {
         "default_icon": "icon.png",
         "default_popup": "popup.html",
         "default_title": "Decode URL"
     },
+    
     "permissions": [
         "tabs",
-        "declarativeContent",
         "cookies",
         "https://*/*"
     ]
