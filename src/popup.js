@@ -34,18 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // List the cookies for this domain
+        // REF: https://support.f5.com/kb/en-us/solutions/public/15000/300/sol15387.html
         chrome.cookies.getAll({url: tab.url}, function(cookies) {
             //console.log(cookies);
             //debugger;
             // Show the cookies section
             if (cookies) document.getElementById("cookies").style.display = "block";
             
+            // Build a table for the cookies
+            var html = "<table cellpadding=0 cellspacing=0><thead><tr><th>Name</th><th>Domain</th><th>Value</th></tr></thead><tbody>";
+            for(var i=0;i<cookies.length;i++) {
+                html += "<tr><td>" + cookies[i].name + "</td><td>" + cookies[i].domain + "</td><td>" + cookies[i].value + "</td></tr>";
+            }
+            html += "</tbody></table>";
+            document.getElementById("cookies").innerHTML = html;
+            return;
+            
             // Build out the list of cookies and values
             var html = "";
             for(var i=0;i<cookies.length;i++) {
                 html += "<strong>" + cookies[i].name + " <em>(" + cookies[i].domain + ")</em></strong>: " + cookies[i].value + "<br />";
             }
-            document.getElementById("sid").innerHTML = html;
+            document.getElementById("cookies").innerHTML = html;
         });
     });
 }, false);

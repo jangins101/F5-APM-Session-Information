@@ -6,24 +6,38 @@ h2 {
     padding: 0; 
     font-style: italic;
     border-bottom: solid 1px #CCC;
+    text-align: center;
 }
-div#apm div, div#cookies div {
+.a {
     padding: 5px;
     border: solid 1px transparent;
     border-left: solid 2px #333;
+    border-right: solid 2px #333;
     margin-bottom: 5px;
 }
-div#apm div:hover, div#cookies div:hover {
-    background-color: rgba(255, 248, 161, 0.25);
+.a span {
+    display:inline-block;
+    margin-left: 10px;
 }
 
-div label {
+.b:hover {
+    border-color: #333;
+    background-color: rgba(255, 248, 161, 0.15);
+}
+label {
     display: block;
     font-size: .9em;
     font-style: italic;
     font-weight: bold;
 }
-div span {
-    display:inline-block;
-    margin-left: 10px;
+
+table tr td, table tr th {
+    border: solid 1px #000;
+    padding:2px;
+}
+table thead tr {
+    background-color: #ffeeee;
+}
+table tbody tr:hover {
+    background-color: rgba(255, 248, 161, 0.25);
 }
