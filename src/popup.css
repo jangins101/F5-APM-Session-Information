@@ -8,25 +8,26 @@ h2 {
     border-bottom: solid 1px #CCC;
     text-align: center;
 }
-.a {
+.row {
     padding: 5px;
     border: solid 1px transparent;
     border-left: solid 2px #333;
     border-right: solid 2px #333;
     margin: 1px 0;
 }
-.a span {
+.row span {
     display:inline-block;
     margin-left: 10px;
 }
 
-.b:hover {
+.highlight:hover {
     border-color: #333;
     background-color: rgba(255, 248, 161, 0.15);
 }
+
 label {
     display: inline-block;
-    width: 150px;
+    width: 10em;
     font-size: .9em;
     font-style: italic;
     font-weight: bold;
