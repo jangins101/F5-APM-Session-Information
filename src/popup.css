@@ -13,7 +13,7 @@ h2 {
     border: solid 1px transparent;
     border-left: solid 2px #333;
     border-right: solid 2px #333;
-    margin-bottom: 5px;
+    margin: 1px 0;
 }
 .a span {
     display:inline-block;
@@ -25,7 +25,8 @@ h2 {
     background-color: rgba(255, 248, 161, 0.15);
 }
 label {
-    display: block;
+    display: inline-block;
+    width: 150px;
     font-size: .9em;
     font-style: italic;
     font-weight: bold;

@@ -4,21 +4,18 @@ function hex2a(hex) {
     for (var i = 0; i < hex.length; i += 2) str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
     return str;
 }
-debugger;
+
 document.addEventListener('DOMContentLoaded', function() {
-    debugger;
-    // Act on the current tab
-    chrome.tabs.getSelected(null, function(tab) {
-        //alert(tab);
-        //debugger;
-        var url = tab.url;
-        console.log('URL: ' + tab.url);
-        console.log(tab);
+    // Process the currently active tab
+    // REF: https://developer.chrome.com/extensions/tabs#method-query
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        var tab = tabs[0];
+        if (!tab) return;
         
-        // Show the decoded APM url
+        // APM rewriter uses the format /f5-w-[HEX-Encoded URL]$$/, so we'll look for that
         var matches = tab.url.match(/f5-w-(.*?)\$\$(\/.*)/);
         if (matches) {
-            // Show the APM section (decoding the urls);
+            // Show the APM section (decoding the url);
             document.getElementById("apm").style.display = "block";
             
             var data = {
@@ -28,18 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 uri: matches[2]
             };
             
-            document.getElementById("host").innerHTML = data.host;
-            document.getElementById("uri").innerHTML = data.uri;
+            document.getElementById("host").innerText = data.host;
+            document.getElementById("uri").innerText = data.uri;
             document.getElementById("url").innerHTML = "<a target='_blank' href='" + data.host + data.uri + "'>" + data.host + data.uri + "</a>";
         }
         
         // List the cookies for this domain
         // REF: https://support.f5.com/kb/en-us/solutions/public/15000/300/sol15387.html
+        // REF: https://developer.chrome.com/extensions/cookies#method-getAll
         chrome.cookies.getAll({url: tab.url}, function(cookies) {
-            //console.log(cookies);
-            //debugger;
+            var el = document.getElementById("cookies");
+            
             // Show the cookies section
-            if (cookies) document.getElementById("cookies").style.display = "block";
+            if (cookies) el.style.display = "block";
             
             // Build a table for the cookies
             var html = "<table cellpadding=0 cellspacing=0><thead><tr><th>Name</th><th>Domain</th><th>Value</th></tr></thead><tbody>";
@@ -47,15 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 html += "<tr><td>" + cookies[i].name + "</td><td>" + cookies[i].domain + "</td><td>" + cookies[i].value + "</td></tr>";
             }
             html += "</tbody></table>";
-            document.getElementById("cookies").innerHTML = html;
-            return;
-            
-            // Build out the list of cookies and values
-            var html = "";
-            for(var i=0;i<cookies.length;i++) {
-                html += "<strong>" + cookies[i].name + " <em>(" + cookies[i].domain + ")</em></strong>: " + cookies[i].value + "<br />";
-            }
-            document.getElementById("cookies").innerHTML = html;
+            el.innerHTML = html;
         });
     });
 }, false);
