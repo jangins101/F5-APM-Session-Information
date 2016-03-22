@@ -1,6 +1,6 @@
 # F5 APM Session Information Chrome Extension
 
-The point of this project was to create a Chrome extension that will show useful information about an APM session, including the decoded url and/or the APM cookie information
+The point of this project was to create a Chrome extension that will show useful information about an APM session, including the decoded url and/or the APM cookie information.
 
 Example:
 
