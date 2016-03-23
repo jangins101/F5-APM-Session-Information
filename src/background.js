@@ -23,4 +23,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         // No need to continue since we've already enable it
         return;
     });
+
+    // TODO;
+    //   Remove cookies upon request (helpful for weird behaviors)
+    //     REF: https://developer.chrome.com/extensions/cookies#method-remove
+    //   Check for BIGIP persistence cookie and decrypt it
+    //     REF: https://github.com/CheungJ/BIG-IP-encoder-and-decoder/blob/master/big-ip-encoder-decoder.js
+    //   Check for BigIp header in the Server field
+    //     REF: https://developer.chrome.com/extensions/webRequest#event-onHeadersReceived
 });
