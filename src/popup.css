@@ -1,9 +1,10 @@
 body{
     color: #333;
+    min-width: 500px;
 }
-h2 {    
+h2 {
     margin: 2px 0 5px 0;
-    padding: 0; 
+    padding: 0;
     font-style: italic;
     border-bottom: solid 1px #CCC;
     text-align: center;
@@ -37,13 +38,17 @@ label {
     font-weight: bold;
 }
 
-table {overflow: auto;}
+table {
+    table-layout: fixed;
+    width: 100%;
+}
 table thead {}
 table tbody {}
 table tr {}
 table tr td, table tr th {
     border: solid 1px #000;
     padding:2px;
+    word-wrap: break-word;
 }
 table thead tr {
     background-color: #ffeeee;
