@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("url").innerHTML = "<a target='_blank' href='" + data.host + data.uri + "'>" + data.host + data.uri + "</a>";
         }
         
+
         // List the cookies for this domain
         // REF: https://support.f5.com/kb/en-us/solutions/public/15000/300/sol15387.html
         // REF: https://developer.chrome.com/extensions/cookies#method-getAll

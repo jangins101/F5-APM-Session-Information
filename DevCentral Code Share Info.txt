@@ -1,13 +1,39 @@
-# Description
+# Title
+
+APM Session & Cookie Information - Chrome Extension
 
 
 
 # Problem this snippet solves
 
+If you've ever troubleshooted *APM Portal Access* issues, you know how annoying it can be to find the decoded internal url. 
+
+This chrome extension seeks to make that quick and easy by showing the decoded internal url. It will also display the cookies for that site, so the `MRHSession` and `LastMRH_Session` cookie values can be determined quickly as well.
+
+#### Version History
+* **v1.1**
+  * Includes APM portal access decoded url information
+  * Includes list of cookies associated with the current site
+  
+  
 
 
 # How to use this snippet
 
+As Chrome doesn't really like unpublished extensions, and it's not in the *Chrome App Store* (yet), you'll have to install the extension in *Developer Mode*.
 
+#### Instructions
 
-# Enter code here
+* Navigate to `chrome://extensions`
+* Ensure that the `Developer mode` checkbox is enabled
+* Sub-Method 1: Load unpacked extension
+  * Download all the code from the [Github repository](https://github.com/jangins101/F5-APM-Session-Information)
+  * Click the `Load unpacked extension` button and select the `src` folder
+* Sub-Method 2: Load the *crx* file
+  * Download the [crx](https://github.com/jangins101/F5-APM-Session-Information/raw/master/F5%20APM%20URL%20Decoder.crx) from the [Github repository](https://github.com/jangins101/F5-APM-Session-Information)
+  * From the file system, click and drag the `.crx` file onto the extension page to installation it
+  
+  
+# Link
+
+https://github.com/jangins101/F5-APM-Session-Information
