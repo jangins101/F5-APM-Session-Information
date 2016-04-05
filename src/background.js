@@ -12,6 +12,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
     
     // Check for an MRHSession cookie, which would denote an APM session 
+    debugger;
     chrome.cookies.get({url: tab.url, name: "MRHSession"}, function(cookie) {
         // The callback is always called, even if the cookie wasn't found.
         if (!cookie) return;
@@ -22,6 +23,16 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         
         // No need to continue since we've already enable it
         return;
+    });
+
+    chrome.cookies.getAll({url: tab.url}, function(cookies) {
+        // Loop through the cookies to see if we fan find known F5 cookies
+        for(var i=0;i<cookies.length;i++) {
+            if (cookies[i].name == "MRHSession" || cookies[i].name.indexOf("BIGipServer") == 0) {
+                chrome.pageAction.show(tabId);
+                return;
+            }
+        }
     });
 
     // TODO;
