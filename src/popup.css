@@ -24,10 +24,18 @@ h3 {
     display:inline-block;
     margin-left: 10px;
 }
+.link {
+    cursor: pointer;
+    padding:2px;
+}
 
 .highlight:hover {
     border-color: #333;
     background-color: rgba(255, 248, 161, 0.15);
+}
+
+fa {
+    cursor:pointer;
 }
 
 label {

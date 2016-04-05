@@ -4,6 +4,9 @@ function hex2a(hex) {
     for (var i = 0; i < hex.length; i += 2) str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
     return str;
 }
+function delCookie(el) {
+    console.log(el);
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Process the currently active tab
@@ -41,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cookies) el.style.display = "block";
             
             // Build a table for the cookies
-            var html = "<table cellpadding=0 cellspacing=0><thead><tr><th>Name</th><th>Domain</th><th>Value</th></tr></thead><tbody>";
+            var html = "<table cellpadding=0 cellspacing=0><thead><tr><th style='width:16px;text-align:center'>&nbsp;</th><th>Name</th><th>Domain</th><th>Value</th></tr></thead><tbody>";
             for(var i=0;i<cookies.length;i++) {
-                html += "<tr><td>" + cookies[i].name + "</td><td>" + cookies[i].domain + "</td><td>" + cookies[i].value + "</td></tr>";
+                html += "<tr><td><i onclick='delCookie(this)' class='link fa fa-trash''></i></td><td>" + cookies[i].name + "</td><td>" + cookies[i].domain + "</td><td>" + cookies[i].value + "</td></tr>";
             }
             html += "</tbody></table>";
             el.innerHTML = html;
