@@ -3,7 +3,7 @@
 
     "name": "F5 APM Information",
     "description": "This extension helps to identify useful inormation regarding an APM session (including APM rewriter url decoding and APM cookies)",
-    "version": "1.1",
+    "version": "1.2",
     "icons": { "128": "icon.png" },
     
     // The pageAction needs this background code to handle events with the windows/tabs

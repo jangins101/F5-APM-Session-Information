@@ -17,7 +17,16 @@ Currently, this extension is not in the Chrome App Store, but you can sideload i
 * Sub-Method 2: Load the *crx* file
   * From the file system, click and drag the `.crx` file onto the extension page to begin the installation.
 
-
 Once you have completed the installation, you will notice the icon grayed somewhere beside the address bar. The icon is only enabled on sites whose url address contain `f5-w-` (denoting an APM encoded url) or where there's an MRHSession cookie.
 
+# Version History
+* 1.1 - Initial version
+  * Includes APM portal access decoded url information
+* 1.2 - 2016.04.01
+  * Added list of cookies associated with the current site (shows cookie name, domain and value)
+* 1.3 - 2016.04.25
+  * Added ability to delete cookies from the extension for the site (Known Issue: if you have multiple cookies with the same name that match the page, deleting one will delete all of them)
+  * Added decoded BIG-IP persistence cookie value in parenthesis to the list for quicker reference
+  
+  
 **NOTE: Sorry for the ugly logo. I didn't want to reuse the F5 logo. If anyone would like to create a logo, please do. It would be greatly appreciated.**
