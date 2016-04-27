@@ -1,3 +1,38 @@
+// This function will decode an LTM persistence cookie
+//    REF: https://github.com/CheungJ/BIG-IP-encoder-and-decoder
+function decodeF5PersistenceCookie(cookieValue) {
+    var ipSegments = [];
+    var sumOfIPSegments = 0;
+    var encodedIP;
+
+    if (typeof cookieValue === 'number') {
+        cookieValue += '';
+    }
+
+    encodedIP = new Number(cookieValue.split('.')[0]);
+
+    /*
+    * Where the format of the IP is a.b.c.d, the calculation is:
+    * a = (cookieValue % 256)
+    * b = ((cookieValue - a) / 256) % 256
+    * c = (((cookieValue - a - b) / 256) / 256) % 256
+    * d = ((((cookieValue - a - b - c) / 256) / 256) / 256) % 256
+    */
+    for (var i = 0; i < 4; i++) {
+        var ip = encodedIP;
+        var n = Math.pow(256, i);
+
+        ip -= sumOfIPSegments;
+        ip = (ip / n);
+        ip = (ip % 256);
+        ip = Math.floor(ip);
+        sumOfIPSegments += ip;
+        ipSegments.push(ip);
+    }
+
+    return ipSegments.join('.');
+}
+
 // This function will decode a HEX string into ASCII
 function hex2a(hex) {
     var str = '';
@@ -70,7 +105,8 @@ $(document).ready(function(){
                     });
                 elRow.append("<td>" + cookies[i].name + "</td>");
                 elRow.append("<td>" + cookies[i].domain + "</td>");
-                elRow.append("<td>" + cookies[i].value + "</td>");
+                elRow.append("<td>" + cookies[i].value + (cookies[i].name.indexOf("BIGipServer") == 0 ? "<br /><em>(" + decodeF5PersistenceCookie(cookies[i].value) + ")</em>" : "") + "</td>");
+
                 elTBody.append(elRow);
             }
             $("#cookies").show().append(elTable);
