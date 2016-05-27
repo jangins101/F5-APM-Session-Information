@@ -54,12 +54,13 @@ chrome.webRequest.onHeadersReceived.addListener(
         // TODO:
         //   Check for BigIp header in the Server field
         //     REF: https://developer.chrome.com/extensions/webRequest#event-onHeadersReceived
-        /*for (var i = 0; i < details.requestHeaders.length; ++i) {
-            if (details.requestHeaders[i].name === 'User-Agent') {
-                details.requestHeaders.splice(i, 1);
+        for (var i = 0; i < details.responseHeaders.length; ++i) {
+            if (details.responseHeaders[i].name === 'Server'
+                    && details.responseHeaders[i].value === "BigIP" ) {
+                enableExtension(details.tabId);
                 break;
             }
-        }*/
+        }
     },
     {urls: ["<all_urls>"]},
     ["blocking", "responseHeaders"]
