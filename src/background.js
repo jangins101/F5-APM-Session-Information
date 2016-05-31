@@ -32,13 +32,15 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 // Send DEBUG header on every F5 APM request
-var _debugHeaderName = "DEBUG_F5";
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
         if (!isF5[details.tabId]) return;
+        if (!(LoadSetting("enableDebug")==="true")) return;
+        if (LoadSetting("debugDomains").search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/.*/, '$1') + ')') < 0) return;
+
         // Uncomment to log that we're adding the debug header to the request
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Adding debug header to request - " + tab.url); });
-        details.requestHeaders.push({name:_debugHeaderName, value:'1'});
+        details.requestHeaders.push({name: (LoadSetting("debugHeaderName")), value:LoadSetting("debugHeaderValue")});
         return {requestHeaders: details.requestHeaders};
     },
     {urls: ["<all_urls>"]},
@@ -48,6 +50,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 chrome.webRequest.onHeadersReceived.addListener(
     function(details) {
         if (!isF5[details.tabId]) return;
+        if (!(LoadSetting("enableOnHeaderServer")==="true")) return;
+
         // Uncomment to log that headers were received
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Received headers for F5 page - " +tab.url); });
 
@@ -56,7 +60,7 @@ chrome.webRequest.onHeadersReceived.addListener(
         //     REF: https://developer.chrome.com/extensions/webRequest#event-onHeadersReceived
         for (var i = 0; i < details.responseHeaders.length; ++i) {
             if (details.responseHeaders[i].name === 'Server'
-                    && details.responseHeaders[i].value === "BigIP" ) {
+                    && details.responseHeaders[i].value === LoadSetting("onHeaderServerValue") ) {
                 enableExtension(details.tabId);
                 break;
             }

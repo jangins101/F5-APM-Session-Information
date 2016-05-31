@@ -1,0 +1,58 @@
+<html>
+<head>
+    <head>
+        <title>F5 APM Information Settings</title>
+
+        <script src="jquery.js" type="application/javascript"></script>
+        <script src="shared.js" type="application/javascript"></script>
+        <script src="options.js" type="application/javascript"></script>
+
+        <link rel="stylesheet" href="options.css" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    </head></head>
+
+    <body>
+        <h2>F5 APM Information Extension Settings</h2>
+
+        <div class="section">
+            <h3>Send debugging header on HTTP requests</h3>
+            <ul>
+                <li>
+                    <label for="cbEnableDebug">Enable:<input type="checkbox" id="cbEnableDebug"></label>
+                </li>
+                <li>
+                    <label for="txtDebugHeaderName">Header Name:</label>
+                    <input type="text" id="txtDebugHeaderName" placeholder="Expected debug header name">
+                </li>
+                <li>
+                    <label for="txtDebugHeaderValue">Header Value:</label>
+                    <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value">
+                </li>
+                <li>
+                    <label for="txtDebugIncludedDomains">Included Domains:</label>
+                    <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma or line feed)"></textarea>
+                </li>
+            </ul>
+        </div>
+        <hr />
+
+        <div class="section">
+            <h3>Enable extension on specific response <em>Server</em> header value</h3>
+            <ul>
+                <li>
+                    <label for="cbEnableOnHeaderServer">Enable:<input type="checkbox" id="cbEnableOnHeaderServer"></label>
+                </li>
+                <li>
+                    <label for="txtOnHeaderServerValue">Header Name:</label>
+                    <input type="text" id="txtOnHeaderServerValue" placeholder="Expected 'Server' header value">
+                </li>
+            </ul>
+        </div>
+        <hr />
+
+        <div class="center">
+            <button id="saveSettings">Save</button>
+            <button id="resetSettings">Restore defaults</button>
+        </div>
+    </body>
+</html>
