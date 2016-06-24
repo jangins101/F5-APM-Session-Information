@@ -1,0 +1,59 @@
+<html ng-csp ng-app='MyOptions'>
+    <head>
+        <title>F5 APM Information Settings</title>
+
+        <script src="./js/shared.js" type="application/javascript"></script>
+
+        <link rel="stylesheet" href="./css/options.css" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    </head>
+
+    <body ng-controller='optionsCtrl' ng-load="reload()">
+        <h2>F5 APM Information Extension Settings</h2>
+
+        <div class="section">
+            <h3>Send debugging header on HTTP requests</h3>
+            <ul>
+                <li>
+                    <label for="cbEnableDebug">Enable:<input type="checkbox" id="cbEnableDebug" ng-model="options.enableDebug"></label>
+                </li>
+                <li>
+                    <label for="txtDebugHeaderName">Header Name:</label>
+                    <input type="text" id="txtDebugHeaderName" placeholder="Expected debug header name" ng-model="options.debugHeaderName">
+                </li>
+                <li>
+                    <label for="txtDebugHeaderValue">Header Value:</label>
+                    <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value" ng-model="options.debugHeaderValue">
+                </li>
+                <li>
+                    <label for="txtDebugIncludedDomains">Included Domains:</label>
+                    <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma or line feed)" ng-model="options.debugDomains"></textarea>
+                </li>
+            </ul>
+        </div>
+        <hr />
+
+        <div class="section">
+            <h3>Enable extension on specific response <em>Server</em> header value</h3>
+            <ul>
+                <li>
+                    <label for="cbEnableOnHeaderServer">Enable:<input type="checkbox" id="cbEnableOnHeaderServer" ng-model="options.enableOnHeaderServer"></label>
+                </li>
+                <li>
+                    <label for="txtOnHeaderServerValue">Header Name:</label>
+                    <input type="text" id="txtOnHeaderServerValue" placeholder="Expected 'Server' header value" ng-model="options.onHeaderServerValue">
+                </li>
+            </ul>
+        </div>
+        <hr />
+
+        <div class="center">
+            <button id="saveSettings" ng-click="save()">Save</button>
+            <button id="cancelSettings" ng-click="cancel()">Cancel</button>
+            <button id="resetSettings" ng-click="reset()">Restore defaults</button>
+        </div>
+
+        <script src="./js/angular.min.js" type="application/javascript"></script>
+        <script src="./js/ngoptions.js" type="application/javascript"></script>
+    </body>
+</html>
