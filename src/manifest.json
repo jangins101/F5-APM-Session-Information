@@ -16,7 +16,7 @@
     
     "page_action": {
         "default_icon": "./images/icon.png",
-        "default_popup": "popup.html",
+        "default_popup": "ngpopup.html",
         "default_title": "Decode URL"
     },
     

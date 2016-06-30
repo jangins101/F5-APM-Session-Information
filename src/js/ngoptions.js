@@ -1,20 +1,6 @@
 'use strict';
 
 var app = angular.module("MyOptions", []);
-/*app.run(function($rootScope) {
-    // Initialization
-    $rootScope.options = (localStorage.options ? JSON.parse(localStorage.options) : defSettings);
-    $rootScope.$watch("options", function(val) {
-        localStorage.options = JSON.stringify(val);
-    })
-
-    $rootScope.data = localStorage.data;
-    $rootScope.$watch("data", function(val) {
-       // If the 'data' field changes, save to localStorage
-        localStorage.data = val;
-    });
-});*/
-
 app.controller('optionsCtrl', function($scope, optionsStorage) {
     $scope.optionsStorage = optionsStorage;
     $scope.$watch('optionsStorage.data', function() {

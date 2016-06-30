@@ -1,0 +1,46 @@
+<!doctype html>
+<html ng-csp ng-app="MyPopup">
+    <head>
+        <title>F5 APM Information</title>
+        <script src="./js/shared.js" type="application/javascript"></script>
+        <link rel="stylesheet" href="./css/popup.css" type="text/css" />
+        <link rel="stylesheet" href="./css/angular-csp.css" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    </head>
+    <body ng-controller="popupCtrl" ng-load="reload()">
+        <h2>F5 APM Information</h2>
+
+        <div id="apm" ng-show="rewrite.enabled">
+            <h3>APM Rewriter Information</h3>
+            <div class="row highlight"><label>Internal hostname:</label><span id="host" ng-bind="rewrite.host"></span></div>
+            <div class="row highlight"><label>Internal uri:</label><span id="uri" ng-bind="rewrite.uri"></span></div>
+            <div class="row highlight"><label>Internal link:</label><span id="link"><a target="_blank" ng-href="{{rewrite.link}}">{{rewrite.link}}</a></span></div>
+            <br /><hr />
+        </div>
+
+        <div ng-show="hasCookies()" id="cookies">
+            <h3>Cookies</h3>
+            <table cellpadding=0 cellspacing=0>
+                <thead>
+                    <tr>
+                        <th style='width:16px;text-align:center'>&nbsp;</th>
+                        <th>Name</th>
+                        <th>Domain</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cookie in cookies" data-value="{{cookie | json}}">
+                        <td><i ng-click="deleteCookie(cookie)" class="delCookie link fa fa-trash"></i></td>
+                        <td>{{cookie.name}}</td>
+                        <td>{{cookie.domain}}</td>
+                        <td>{{cookie.value}}<span ng-show="cookie.persistence"><br /><em>{{cookie.persistence}}</em></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="./js/angular.min.js" type="application/javascript"></script>
+        <script src="./js/ngpopup.js" type="application/javascript"></script>
+    </body>
+</html>
