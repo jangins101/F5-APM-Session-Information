@@ -3,7 +3,7 @@
 
     "name": "F5 APM Information",
     "description": "This extension helps to identify useful inormation regarding an APM session (including APM rewriter url decoding and APM cookies)",
-    "version": "1.3",
+    "version": "1.4",
     "icons": { "128": "./images/icon.png" },
     
 /* NOT YET IMPLEMENTED PROPERLY
