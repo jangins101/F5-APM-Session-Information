@@ -31,12 +31,18 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 });
 
+/*
+
+// NOT YET IMPLEMENTED PROPERLY
+//  * Need to figure out how to deal with chrome storage here to get options
+
+
 // Send DEBUG header on every F5 APM request
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
         if (!isF5[details.tabId]) return;
         if (!(LoadSetting("enableDebug")==="true")) return;
-        if (LoadSetting("debugDomains").search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/.*/, '$1') + ')') < 0) return;
+        if (LoadSetting("debugDomains").search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1') + ')') < 0) return;
 
         // Uncomment to log that we're adding the debug header to the request
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Adding debug header to request - " + tab.url); });
@@ -69,3 +75,4 @@ chrome.webRequest.onHeadersReceived.addListener(
     {urls: ["<all_urls>"]},
     ["blocking", "responseHeaders"]
 );
+*/
