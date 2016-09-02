@@ -35,17 +35,12 @@ function decodeF5PersistenceCookie(cookieValue) {
     return ipSegments.join('.');
 }
 
-// This function will decode a HEX string into ASCII
-function hex2a(hex) {
-    var str = '';
-    for (var i = 0; i < hex.length; i += 2) str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
-}
-function delCookie(el) {
-    console.log(el);
-}
-
 var app = angular.module("MyPopup", []);
+app.filter('trust', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+    }])
 app.controller('popupCtrl', function($scope) {
     $scope.tab = null;
 
@@ -85,6 +80,7 @@ app.controller('popupCtrl', function($scope) {
             $scope.rewrite.host    = hex2a(matches[1]);
             $scope.rewrite.uri     = matches[2];
             $scope.rewrite.link    = $scope.rewrite.host + $scope.rewrite.uri;
+            chrome.pageAction.setTitle({tabId: $scope.tab.id, title: "Host: " + $scope.rewrite.host});
             $scope.$digest();
         }
 
@@ -93,9 +89,25 @@ app.controller('popupCtrl', function($scope) {
         // REF: https://developer.chrome.com/extensions/cookies#method-getAll
         chrome.cookies.getAll({url: $scope.tab.url}, function(cookies) {
             for (var i=0;i<cookies.length;i++) {
+                // Check for persistence cookie
                 cookies[i].persistence = (cookies[i].name.indexOf("BIGipServer") == 0
                                           ? decodeF5PersistenceCookie(cookies[i].value)
                                           : null);
+
+                switch (cookies[i].name) {
+                    case "LastMRH_Session":
+                        $scope.sidLast8 = cookies[i].value;
+                        chrome.pageAction.getTitle({tabId: $scope.tab.id}, function(title){
+                            if (title && title.length > 0) { title += "\n"; }
+                            chrome.pageAction.setTitle({tabId: $scope.tab.id, title: (title + "Last 8 sid: " + $scope.sidLast8)});
+                        });
+                        break;
+                    case "MRHSession":
+                        $scope.sid = cookies[i].value;
+                        var tempIdx = $scope.sid.length-8;
+                        $scope.sidLabel = $scope.sid.slice(0,tempIdx) + " <strong style='margin-left:-2px;'>" + $scope.sid.slice(tempIdx) + "</strong>";
+                        break;
+                }
             }
             $scope.cookies = cookies;
             $scope.$digest();

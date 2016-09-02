@@ -2,7 +2,7 @@
 var isF5 = [];
 
 // DRY principal (Don't Repeat Yourself)
-function enableExtension(tabId) {
+function enableExtension(tabId, title) {
     // Enable the pageAction
     // REF: https://developer.chrome.com/extensions/pageAction
     chrome.pageAction.show(tabId);
@@ -12,12 +12,20 @@ function enableExtension(tabId) {
 // Whenever a tab is updated, this method will be called
 // REF: https://developer.chrome.com/extensions/tabs#event-onUpdated
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    // Clear out the pageAction title
+    var tooltip = "", tipSid = false;
+
     // Check the tab URL for typical "/f5-w-$$" denoting an APM portal access page
     if (tab.url.indexOf("/f5-w-") >= 0) {
+        // Update the title with the decoded internal hostname
+        var matches = tab.url.match(/f5-w-(.*?)\$\$(\/.*)/);
+        if (matches) { tooltip += 'Decoded Host: ' + hex2a(matches[1]) + '\n'; };
+
+        // Enable the pageAction
         enableExtension(tabId);
 
         // No need to continue since we've already enable it
-        return;
+        //return;
     }
 
     // Check for known F5 cookies (including persistence cookies)
@@ -25,18 +33,29 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         for(var i=0;i<cookies.length;i++) {
             if (cookies[i].name == "MRHSession" || cookies[i].name.indexOf("BIGipServer") == 0) {
                 enableExtension(tabId);
-                return;
+            } else if (cookies[i].name == "LastMRH_Session" && !tipSid) {
+                tooltip += 'Last 8 Sid: ' + cookies[i].value;
+                tipSid = true;
             }
         }
+
+        // Update the tooltip
+        if (tooltip != "") { chrome.pageAction.setTitle({tabId: tabId, title: tooltip}); }
+    });
 });
-});
+
+/*
+
+// NOT YET IMPLEMENTED PROPERLY
+//  * Need to figure out how to deal with chrome storage here to get options
+
 
 // Send DEBUG header on every F5 APM request
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
         if (!isF5[details.tabId]) return;
         if (!(LoadSetting("enableDebug")==="true")) return;
-        if (LoadSetting("debugDomains").search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/.*/, '$1') + ')') < 0) return;
+        if (LoadSetting("debugDomains").search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1') + ')') < 0) return;
 
         // Uncomment to log that we're adding the debug header to the request
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Adding debug header to request - " + tab.url); });
@@ -69,3 +88,4 @@ chrome.webRequest.onHeadersReceived.addListener(
     {urls: ["<all_urls>"]},
     ["blocking", "responseHeaders"]
 );
+*/

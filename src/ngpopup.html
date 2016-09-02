@@ -15,6 +15,7 @@
             <div class="row highlight"><label>Internal hostname:</label><span id="host" ng-bind="rewrite.host"></span></div>
             <div class="row highlight"><label>Internal uri:</label><span id="uri" ng-bind="rewrite.uri"></span></div>
             <div class="row highlight"><label>Internal link:</label><span id="link"><a target="_blank" ng-href="{{rewrite.link}}">{{rewrite.link}}</a></span></div>
+            <div class="row highlight" ng-show="sid != undefined"><label>Session ID:</label><span id="sid" ng-bind-html="sidLabel | trust"></span></div>
             <br /><hr />
         </div>
 

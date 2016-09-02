@@ -27,6 +27,8 @@ Once you have completed the installation, you will notice the icon grayed somewh
 * 1.3 - 2016.04.25
   * Added ability to delete cookies from the extension for the site (Known Issue: if you have multiple cookies with the same name that match the page, deleting one will delete all of them)
   * Added decoded BIG-IP persistence cookie value in parenthesis to the list for quicker reference
-  
+* 1.4 - 2016.06.30
+  * Rebuilt the popup page using AngularJS
+  * Introduced (but still disabled) options page and client-side functionality (will need iRules development as well).
   
 **NOTE: Sorry for the ugly logo. I didn't want to reuse the F5 logo. If anyone would like to create a logo, please do. It would be greatly appreciated.**
