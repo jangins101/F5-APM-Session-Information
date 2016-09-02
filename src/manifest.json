@@ -6,10 +6,10 @@
     "version": "1.4",
     "icons": { "128": "./images/icon.png" },
     
-/* NOT YET IMPLEMENTED PROPERLY
+/* NOT YET IMPLEMENTED PROPERLY */
     // Options page - For customization settings
     "options_page": "ngoptions.html",
-*/
+
 
     // The pageAction needs this background code to handle events with the windows/tabs
     "background": { 

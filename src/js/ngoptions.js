@@ -57,7 +57,7 @@ app.service('optionsStorage', function ($q) {
         console.log("storage.load: getting options from storage")
         chrome.storage.sync.get('options', function(keys) {
             console.log("storage.load.get: options retireved");
-            _this.data = keys.options ? keys.options : angular.copy(_this.defaults);
+            _this.data = keys.options;// ? keys.options : angular.copy(_this.defaults);
             console.log(_this.data);
 
             // Execute the callback
@@ -72,6 +72,11 @@ app.service('optionsStorage', function ($q) {
            console.log("Saved options to Chrome storage");
         });
         console.log(data);
+
+        chrome.runtime.sendMessage({isDirty: 'settings'}, function(response) {
+            console.log("messge response received");
+            console.log(response);
+        });
     };
     this.reset = function(callback) {
         console.log("storage.reset: resetting options to default");
