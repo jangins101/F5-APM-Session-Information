@@ -37,6 +37,7 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
 
 app.service('optionsStorage', function ($q) {
     var _this = this;
+    /*
     this.defaults = {
             // Enable debug header on requests for a given domain
             enableDebug: false,
@@ -51,6 +52,7 @@ app.service('optionsStorage', function ($q) {
             enableOnHeaderServer: false,
             onHeaderServerValue: "Bigip"
         };
+    */
     this.data = null; //angular.copy(this.defaults);
 
     this.load = function(callback) {
