@@ -50,17 +50,24 @@ var _currentSettings;
 function getSettings(keys) {
     _currentSettings = keys.options || angular.copy(defOptions);
     _currentSettings.debugDomainsParsed = function(escapeRegex) {
-        var str = (!escapeRegex) ? this.debugDomains : this.debugDomains.replace(/\./g,"\\.").replace(/\*/g, '.*?');
-        return str.split(/,|\n/g) || [];
+        try {
+            var str = (!escapeRegex) ? this.debugDomains : this.debugDomains.replace(/\./g,"\\.").replace(/\*/g, '.*?');
+            return str.split(/,|\n/g) || [];
+        } catch(err) {
+            console.log("Error parsing debug domains");
+            console.log(err);
+        }
     };
     _currentSettings.isHostInDebugDomains = function(hostname) {
-        debugger;
         var list = this.debugDomainsParsed(true);
         for (var i=0; i<list.length; i++) {
             try {
                 if (list[i] === hostname) return true;
                 if (hostname.match(list[i])) return true;
-            } catch(err) {}
+            } catch(err) {
+                console.log("Error checking hostname in debug domains");
+                console.log(err);
+            }
         }
         return false;
     };
@@ -85,8 +92,6 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         if (!_currentSettings.enableDebug) return;
         var host = details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1');
         if (!(_currentSettings.isHostInDebugDomains(host))) return;
-        //if (!(isF5DebugDomains[host] || _currentSettings.isHostInDebugDomains(host))) return;
-        //if (!(isF5DebugDomains[host] || (_currentSettings.debugDomains.search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1') + ')') < 0))) return;
         
         isF5DebugDomains[host] = true;
         

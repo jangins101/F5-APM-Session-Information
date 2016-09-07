@@ -37,23 +37,7 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
 
 app.service('optionsStorage', function ($q) {
     var _this = this;
-    /*
-    this.defaults = {
-            // Enable debug header on requests for a given domain
-            enableDebug: false,
-            debugHeaderName: "DEBUG_F5",
-            debugHeaderValue: "1",
-            debugDomains: "",
-            debugDomainsParsed: function() {
-                return this.debugDomains.split(/,|\n/g);
-            },
-
-            // Enable the extension on a given header value for the Server header
-            enableOnHeaderServer: false,
-            onHeaderServerValue: "Bigip"
-        };
-    */
-    this.data = null; //angular.copy(this.defaults);
+    this.data = null; 
 
     this.load = function(callback) {
         console.log("storage.load: getting options from storage")
@@ -82,7 +66,6 @@ app.service('optionsStorage', function ($q) {
     };
     this.reset = function(callback) {
         console.log("storage.reset: resetting options to default");
-        //_this.save(angular.copy(_this.defaults));
         _this.save(angular.copy(defSettings));
     };
 
