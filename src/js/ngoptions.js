@@ -59,7 +59,7 @@ app.service('optionsStorage', function ($q) {
         console.log("storage.load: getting options from storage")
         chrome.storage.sync.get('options', function(keys) {
             console.log("storage.load.get: options retireved");
-            _this.data = keys.options;// ? keys.options : angular.copy(_this.defaults);
+            _this.data = keys.options ? keys.options : angular.copy(defSettings);
             console.log(_this.data);
 
             // Execute the callback
@@ -82,7 +82,8 @@ app.service('optionsStorage', function ($q) {
     };
     this.reset = function(callback) {
         console.log("storage.reset: resetting options to default");
-        _this.save(angular.copy(_this.defaults));
+        //_this.save(angular.copy(_this.defaults));
+        _this.save(angular.copy(defSettings));
     };
 
     // Load the options

@@ -1,5 +1,6 @@
 // Used to determine whether a tab's requests should include the F5 debug header
 var isF5 = [];
+var isF5DebugDomains = [];
 
 // DRY principal (Don't Repeat Yourself)
 function enableExtension(tabId, title) {
@@ -47,24 +48,23 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 // Load the settings
 var _currentSettings;
 function getSettings(keys) {
-    if (!keys.options) {
-         keys.options = {
-            // Enable debug header on requests for a given domain
-            enableDebug: false,
-            debugHeaderName: "DEBUG_F5",
-            debugHeaderValue: "1",
-            debugDomains: "",
-            debugDomainsParsed: function() {
-                return this.debugDomains.split(/,|\n/g);
-            },
-
-            // Enable the extension on a given header value for the Server header
-            enableOnHeaderServer: false,
-            onHeaderServerValue: "Bigip"
-        };
-    }
-    _currentSettings = keys.options;
-    //console.log(_currentSettings);
+    _currentSettings = keys.options || angular.copy(defOptions);
+    _currentSettings.debugDomainsParsed = function(escapeRegex) {
+        var str = (!escapeRegex) ? this.debugDomains : this.debugDomains.replace(/\./g,"\\.").replace(/\*/g, '.*?');
+        return str.split(/,|\n/g) || [];
+    };
+    _currentSettings.isHostInDebugDomains = function(hostname) {
+        debugger;
+        var list = this.debugDomainsParsed(true);
+        for (var i=0; i<list.length; i++) {
+            try {
+                if (list[i] === hostname) return true;
+                if (hostname.match(list[i])) return true;
+            } catch(err) {}
+        }
+        return false;
+    };
+    console.log(_currentSettings);
 }
 function getSettingsWrapper() {
     chrome.storage.sync.get('options', getSettings);
@@ -72,7 +72,10 @@ function getSettingsWrapper() {
 getSettingsWrapper();
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        if (request.isDirty == "settings") { getSettingsWrapper(); }
+        if (request.isDirty == "settings") { 
+            getSettingsWrapper(); 
+            isF5DebugDomains = [];
+        }
     });
 
 // Send DEBUG header on every F5 APM request
@@ -80,8 +83,13 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
         if (!isF5[details.tabId]) return;
         if (!_currentSettings.enableDebug) return;
-        if (_currentSettings.debugDomains.search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1') + ')') < 0) return;
-
+        var host = details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1');
+        if (!(_currentSettings.isHostInDebugDomains(host))) return;
+        //if (!(isF5DebugDomains[host] || _currentSettings.isHostInDebugDomains(host))) return;
+        //if (!(isF5DebugDomains[host] || (_currentSettings.debugDomains.search('^$|((^|,)' + details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1') + ')') < 0))) return;
+        
+        isF5DebugDomains[host] = true;
+        
         // Uncomment to log that we're adding the debug header to the request
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Adding debug header to request - " + tab.url); });
         details.requestHeaders.push({name: _currentSettings.debugHeaderName, value:_currentSettings.debugHeaderValue});
