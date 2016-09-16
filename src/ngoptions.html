@@ -26,8 +26,9 @@
                     <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value" ng-model="options.debugHeaderValue">
                 </li>
                 <li>
-                    <label for="txtDebugIncludedDomains">Included Domains:</label>
-                    <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma or line feed)" ng-model="options.debugDomains"></textarea>
+                    <label for="txtDebugIncludedDomains">Enabled url filtering:</label>
+                    <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma)" ng-model="options.debugDomains"></textarea>
+                    <small>(NOTE: wildcards are not currently allowed. allowed domains MUST match hostname exactly.)</small>
                 </li>
             </ul>
         </div>

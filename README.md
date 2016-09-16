@@ -30,5 +30,8 @@ Once you have completed the installation, you will notice the icon grayed somewh
 * 1.4 - 2016.06.30
   * Rebuilt the popup page using AngularJS
   * Introduced (but still disabled) options page and client-side functionality (will need iRules development as well).
+* 1.5 - 2016.09.07
+  * Enabled the options page again, and finished code to allow the extension to add a header to requests on specific domains (user specified). 
+  * TODO: update the received header section that should enable the extension (i.e. expected Server header value)
   
 **NOTE: Sorry for the ugly logo. I didn't want to reuse the F5 logo. If anyone would like to create a logo, please do. It would be greatly appreciated.**
