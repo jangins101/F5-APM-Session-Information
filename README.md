@@ -32,6 +32,8 @@ Once you have completed the installation, you will notice the icon grayed somewh
   * Introduced (but still disabled) options page and client-side functionality (will need iRules development as well).
 * 1.5 - 2016.09.07
   * Enabled the options page again, and finished code to allow the extension to add a header to requests on specific domains (user specified). 
+* 1.5.1 - 2016.09.18
+  * Updated the icon. Removed APM and replaced with debugging icon since this has morphed to APM and LTM usefulness.
   * TODO: update the received header section that should enable the extension (i.e. expected Server header value)
   
 **NOTE: Sorry for the ugly logo. I didn't want to reuse the F5 logo. If anyone would like to create a logo, please do. It would be greatly appreciated.**
