@@ -79,8 +79,8 @@ function getSettingsWrapper() {
 getSettingsWrapper();
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        if (request.isDirty == "settings") { 
-            getSettingsWrapper(); 
+        if (request.isDirty == "settings") {
+            getSettingsWrapper();
             isF5DebugDomains = [];
         }
     });
@@ -92,9 +92,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         if (!_currentSettings.enableDebug) return;
         var host = details.url.replace(/^https?:\/\/(.*?)\/(.*)/, '$1');
         if (!(_currentSettings.isHostInDebugDomains(host))) return;
-        
+
         isF5DebugDomains[host] = true;
-        
         // Uncomment to log that we're adding the debug header to the request
         //chrome.tabs.get(details.tabId, function(tab){ console.log("Adding debug header to request - " + tab.url); });
         details.requestHeaders.push({name: _currentSettings.debugHeaderName, value:_currentSettings.debugHeaderValue});

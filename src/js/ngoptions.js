@@ -37,7 +37,7 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
 
 app.service('optionsStorage', function ($q) {
     var _this = this;
-    this.data = null; 
+    this.data = null;
 
     this.load = function(callback) {
         console.log("storage.load: getting options from storage")
