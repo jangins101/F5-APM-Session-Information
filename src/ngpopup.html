@@ -5,36 +5,51 @@
         <script src="./js/shared.js" type="application/javascript"></script>
         <link rel="stylesheet" href="./css/popup.css" type="text/css" />
         <link rel="stylesheet" href="./css/angular-csp.css" type="text/css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body ng-controller="popupCtrl" ng-load="reload()">
-        <h2>F5 APM Information</h2>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="F5 Logo" src="./images/icon.png" style="width:28px;height:28px;">
+                    </a>
+                    <p class="navbar-text">
+                        F5 Debug Information
+                        <small style="float:right;padding-right:5px;">
+                            <a class="navbar-link" href="https://github.com/jangins101/F5-APM-Session-Information" target="_blank" title="Github Project"><img src="./images/github.png" style="width:16px;height:16px;" /> Github</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </nav>
 
-        <div id="apm" ng-show="rewrite.enabled">
-            <h3>APM Rewriter Information</h3>
-            <div class="row highlight"><label>Internal hostname:</label><span id="host" ng-bind="rewrite.host"></span></div>
-            <div class="row highlight"><label>Internal uri:</label><span id="uri" ng-bind="rewrite.uri"></span></div>
-            <div class="row highlight"><label>Internal link:</label><span id="link"><a target="_blank" ng-href="{{rewrite.link}}">{{rewrite.link}}</a></span></div>
-            <div class="row highlight" ng-show="sid != undefined"><label>Session ID:</label><span id="sid" ng-bind-html="sidLabel | trust"></span></div>
-            <br /><hr />
+        <div id="apm" class="panel panel-default" ng-show="rewrite.enabled">
+            <div class="panel-heading" style="font-weight:bold;">APM Rewriter Information</div>
+            <ul class="list-group">
+                <li class="list-group-item"><label>Internal hostname:</label><span id="host" ng-bind="rewrite.host"></span></li>
+                <li class="list-group-item"><label>Internal uri:</label><span id="uri" ng-bind="rewrite.uri"></span></li>
+                <li class="list-group-item"><label>Internal link:</label><span id="link"><a target="_blank" ng-href="{{rewrite.link}}">{{rewrite.link}}</a></span></li>
+                <li class="list-group-item" ng-show="sid != undefined"><label>Session ID:</label><span id="sid" ng-bind-html="sidLabel | trust"></span></li>
+            </ul>
         </div>
 
-        <div ng-show="hasCookies()" id="cookies">
-            <h3>Cookies</h3>
-            <table cellpadding=0 cellspacing=0>
+        <div ng-show="hasCookies()" class="panel panel-default" id="cookies">
+            <div class="panel-heading" style="font-weight:bold;">Cookies</div>
+            <table class="table" cellpadding=0 cellspacing=0>
                 <thead>
                     <tr>
                         <th style='width:16px;text-align:center'>&nbsp;</th>
                         <th>Name</th>
-                        <th>Domain</th>
+                        <th nowrap>Domain</th>
                         <th>Value</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="cookie in cookies" data-value="{{cookie | json}}">
-                        <td><i ng-click="deleteCookie(cookie)" class="delCookie link fa fa-trash"></i></td>
-                        <td>{{cookie.name}}</td>
-                        <td>{{cookie.domain}}</td>
+                        <td><button type="button" class="btn btn-default btn-xs" ng-click="deleteCookie(cookie)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                        <td nowrap>{{cookie.name}}</td>
+                        <td nowrap>{{cookie.domain}}</td>
                         <td>{{cookie.value}}<span ng-show="cookie.persistence"><br /><em>{{cookie.persistence}}</em></span></td>
                     </tr>
                 </tbody>

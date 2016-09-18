@@ -5,54 +5,71 @@
         <script src="./js/shared.js" type="application/javascript"></script>
 
         <link rel="stylesheet" href="./css/options.css" type="text/css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
 
     <body ng-controller='optionsCtrl' ng-load="reload()">
-        <h2>F5 APM Information Extension Settings</h2>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="F5 Logo" src="./images/icon.png" style="width:28px;height:28px;">
+                    </a>
+                    <p class="navbar-text">
+                        F5 Debug Information Extension Settings
+                    </p>
+                </div>
+            </div>
+        </nav>
 
-        <div class="section">
-            <h3>Send debugging header on HTTP requests</h3>
-            <ul>
-                <li>
-                    <label for="cbEnableDebug">Enable:<input type="checkbox" id="cbEnableDebug" ng-model="options.enableDebug"></label>
-                </li>
-                <li>
-                    <label for="txtDebugHeaderName">Header Name:</label>
-                    <input type="text" id="txtDebugHeaderName" placeholder="Expected debug header name" ng-model="options.debugHeaderName">
-                </li>
-                <li>
-                    <label for="txtDebugHeaderValue">Header Value:</label>
-                    <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value" ng-model="options.debugHeaderValue">
-                </li>
-                <li>
-                    <label for="txtDebugIncludedDomains">Enabled url filtering:</label>
-                    <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma)" ng-model="options.debugDomains"></textarea>
-                    <small>(NOTE: wildcards are not currently allowed. allowed domains MUST match hostname exactly.)</small>
-                </li>
-            </ul>
-        </div>
-        <hr />
-
-        <div class="section">
-            <h3>Enable extension on specific response <em>Server</em> header value</h3>
-            <ul>
-                <li>
-                    <label for="cbEnableOnHeaderServer">Enable:<input type="checkbox" id="cbEnableOnHeaderServer" ng-model="options.enableOnHeaderServer"></label>
-                </li>
-                <li>
-                    <label for="txtOnHeaderServerValue">Header Name:</label>
-                    <input type="text" id="txtOnHeaderServerValue" placeholder="Expected 'Server' header value" ng-model="options.onHeaderServerValue">
-                </li>
-            </ul>
-        </div>
-        <hr />
-
-        <div class="center">
-            <button id="saveSettings" ng-click="save()">Save</button>
-            <button id="cancelSettings" ng-click="cancel()">Cancel</button>
-            <button id="resetSettings" ng-click="reset()">Restore defaults</button>
-        </div>
+        <form  style="width:95%; max-width:800px; margin:0 auto; padding:5px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Send custom header on HTTP requests</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="checkbox">
+                        <label for="cbEnableDebug"><input type="checkbox" id="cbEnableDebug" ng-model="options.enableDebug"> Enabled</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDebugHeaderName">Header Name:</label>
+                        <input type="text" id="txtDebugHeaderName" placeholder="Expected debug header name" ng-model="options.debugHeaderName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDebugHeaderValue">Header Value:</label>
+                        <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value" ng-model="options.debugHeaderValue" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDebugIncludedDomains">Enabled url filtering:</label>
+                        <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma)" ng-model="options.debugDomains" class="form-control"></textarea>
+                        <div class="text-right"><em><small>(NOTE: wildcards are not currently allowed. Allowed domains MUST match hostname exactly)</small></em></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Not implemented yet -->
+            <div class="panel panel-default" style="display:none;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Enable extension on specific response <em>Server</em> header value</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="checkbox">
+                        <label for="cbEnableOnHeaderServer"><input type="checkbox" id="cbEnableOnHeaderServer" ng-model="options.enableOnHeaderServer"> Enabled</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtOnHeaderServerValue">Header Name:</label>
+                        <input type="text" id="txtOnHeaderServerValue" placeholder="Expected 'Server' header value" ng-model="options.onHeaderServerValue" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button class="btn btn-primary btn-lg" id="saveSettings" ng-click="save()">Save</button>
+                <button class="btn btn-danger btn-lg" id="cancelSettings" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-warning btn-lg" id="resetSettings" ng-click="reset()">Restore defaults</button>
+            </div>
+            <div class="form-group text-center" ng-show="alert.active">
+                <div class="alert" ng-class="alert.class" role="alert">{{alert.message}}</div>
+            </div>
+        </form>
 
         <script src="./js/angular.min.js" type="application/javascript"></script>
         <script src="./js/ngoptions.js" type="application/javascript"></script>

@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module("MyOptions", []);
-app.controller('optionsCtrl', function($scope, optionsStorage) {
+app.controller('optionsCtrl', function($scope, $timeout, optionsStorage) {
+    $scope.alert = {status: "", message: ""};
     $scope.optionsStorage = optionsStorage;
     $scope.$watch('optionsStorage.data', function() {
         console.log("optionsStorage.data watch executed");
@@ -16,19 +17,41 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
             $scope.$digest();
             //$scope.$apply();
         });
-    }
+    };
+    $scope.clearAlertIn = function(sec) {
+        $timeout(function() {
+            $scope.alert.active = false;
+            $scope.alert.class = "";
+            $scope.alert.message = "";
+        }, 5000);
+    };
     $scope.save = function() {
         console.log("save: options saved");
         optionsStorage.save($scope.options);
+
+        $scope.alert.active = true;
+        $scope.alert.class = 'alert-success';
+        $scope.alert.message = 'Settings saved';
+        $scope.clearAlertIn(5000);
     };
     $scope.cancel = function() {
         console.log("cancel: options update cancelled");
         $scope.reload();
+
+        $scope.alert.active = true;
+        $scope.alert.class = 'alert-danger';
+        $scope.alert.message = 'Changed cancelled';
+        $scope.clearAlertIn(5000);
     }
     $scope.reset = function() {
         console.log("reset: options reset to default");
         $scope.optionsStorage.reset();
         $scope.reload();
+
+        $scope.alert.active = true;
+        $scope.alert.class = 'alert-warning';
+        $scope.alert.message = 'Settings reset to default values';
+        $scope.clearAlertIn(5000);
     }
 
     // Initally load the stuff
