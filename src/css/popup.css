@@ -1,28 +1,7 @@
 body{
     color: #333;
     min-width: 500px;
-}
-h2 {
-    margin: 2px 0 5px 0;
-    padding: 0;
-    font-style: italic;
-    border-bottom: solid 1px #CCC;
-    text-align: center;
-}
-h3 {
-    margin: 2px 0;
-}
-
-.row {
-    padding: 5px;
-    border: solid 1px transparent;
-    border-left: solid 2px #333;
-    border-right: solid 2px #333;
-    margin: 1px 0;
-}
-.row span {
-    display:inline-block;
-    margin-left: 10px;
+    padding-top: 60px;
 }
 .link {
     cursor: pointer;
@@ -30,7 +9,7 @@ h3 {
 }
 
 .highlight:hover {
-    border-color: #333;
+    /*border-color: #333;*/
     background-color: rgba(255, 248, 161, 0.15);
 }
 
@@ -46,21 +25,27 @@ label {
     font-weight: bold;
 }
 
+
 table {
-    table-layout: fixed;
-    width: 100%;
+    /*table-layout: fixed;
+    width: 100%;*/
 }
 table thead {}
 table tbody {}
 table tr {}
 table tr td, table tr th {
-    border: solid 1px #000;
-    padding:2px;
+    /*padding:2px;*/
     word-wrap: break-word;
+    word-break: break-all;
 }
 table thead tr {
-    background-color: #ffeeee;
+    /*background-color: #ffeeee;*/
 }
-table tbody tr:hover {
+table tbody tr:hover, li:hover {
     background-color: rgba(255, 248, 161, 0.25);
 }
+
+.min20 { width:20%; min-width: 20%; }
+.min50 { width:50%; min-width: 50%; }
+.max25 { max-width: 25%; }
+.hl { background-color: rgba(200,200,0,.1); border: solid 1px #CCC;}

@@ -1,2 +1,8 @@
+/.DS_Store
 /DevCentral Code Share Info.txt
 /F5 APM URL Decoder.pem
+/src/images/icon.xcf
+
+
+# TODO: iRule debugger idea similar to https://devcentral.f5.com/codeshare/irule-event-order-908
+# TODO: Json Visualizer - https://github.com/mohsen1/json-formatter/

@@ -29,6 +29,7 @@ var storagePrefix = "F5ApmExtensionSettings_";
 var defSettings = {
     // Enable debug header on requests for a given domain
     enableDebug: false,
+    enableDebugStrict: false,
     debugHeaderName: "DEBUG_F5",
     debugHeaderValue: "1",
     debugDomains: "",

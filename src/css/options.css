@@ -1,9 +1,10 @@
 body{
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     color: #333;
-    width: 500px;
+    /*width: 500px;*/
+    padding-top:60px;
 }
-
+/*
 h2 {
     margin: 2px 0 5px 0;
     padding: 0;
@@ -57,3 +58,4 @@ button {
 .center {
     text-align: center;
 }
+*/

@@ -1,7 +1,8 @@
 'use strict';
 
 var app = angular.module("MyOptions", []);
-app.controller('optionsCtrl', function($scope, optionsStorage) {
+app.controller('optionsCtrl', function($scope, $timeout, optionsStorage) {
+    $scope.alert = {status: "", message: ""};
     $scope.optionsStorage = optionsStorage;
     $scope.$watch('optionsStorage.data', function() {
         console.log("optionsStorage.data watch executed");
@@ -16,19 +17,33 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
             $scope.$digest();
             //$scope.$apply();
         });
-    }
+    };
+    $scope.alertFor = function(timeout, cssClass, msg) {
+        $scope.alert.active = true;
+        $scope.alert.class = cssClass;
+        $scope.alert.message = msg;
+        
+        $timeout(function() {
+            $scope.alert.active = false;
+            $scope.alert.class = "";
+            $scope.alert.message = "";
+        }, timeout);
+    };
     $scope.save = function() {
         console.log("save: options saved");
         optionsStorage.save($scope.options);
+        $scope.alertFor(5000, 'alert-success', 'Settings saved');
     };
     $scope.cancel = function() {
         console.log("cancel: options update cancelled");
         $scope.reload();
+        $scope.alertFor(5000, 'alert-danger', 'Changed cancelled');
     }
     $scope.reset = function() {
         console.log("reset: options reset to default");
         $scope.optionsStorage.reset();
         $scope.reload();
+        $scope.alertFor(5000, 'alert-warning', 'Settings reset to default values');
     }
 
     // Initally load the stuff
@@ -37,27 +52,13 @@ app.controller('optionsCtrl', function($scope, optionsStorage) {
 
 app.service('optionsStorage', function ($q) {
     var _this = this;
-    this.defaults = {
-            // Enable debug header on requests for a given domain
-            enableDebug: false,
-            debugHeaderName: "DEBUG_F5",
-            debugHeaderValue: "1",
-            debugDomains: "",
-            debugDomainsParsed: function() {
-                return this.debugDomains.split(/,|\n/g);
-            },
-
-            // Enable the extension on a given header value for the Server header
-            enableOnHeaderServer: false,
-            onHeaderServerValue: "Bigip"
-        };
-    this.data = null; //angular.copy(this.defaults);
+    this.data = null;
 
     this.load = function(callback) {
         console.log("storage.load: getting options from storage")
         chrome.storage.sync.get('options', function(keys) {
             console.log("storage.load.get: options retireved");
-            _this.data = keys.options ? keys.options : angular.copy(_this.defaults);
+            _this.data = keys.options ? keys.options : angular.copy(defSettings);
             console.log(_this.data);
 
             // Execute the callback
@@ -72,10 +73,15 @@ app.service('optionsStorage', function ($q) {
            console.log("Saved options to Chrome storage");
         });
         console.log(data);
+
+        chrome.runtime.sendMessage({isDirty: 'settings'}, function(response) {
+            console.log("messge response received");
+            console.log(response);
+        });
     };
     this.reset = function(callback) {
         console.log("storage.reset: resetting options to default");
-        _this.save(angular.copy(_this.defaults));
+        _this.save(angular.copy(defSettings));
     };
 
     // Load the options

@@ -93,7 +93,7 @@ app.controller('popupCtrl', function($scope) {
                 cookies[i].persistence = (cookies[i].name.indexOf("BIGipServer") == 0
                                           ? decodeF5PersistenceCookie(cookies[i].value)
                                           : null);
-                
+
                 switch (cookies[i].name) {
                     case "LastMRH_Session":
                         $scope.sidLast8 = cookies[i].value;
@@ -102,7 +102,7 @@ app.controller('popupCtrl', function($scope) {
                             chrome.pageAction.setTitle({tabId: $scope.tab.id, title: (title + "Last 8 sid: " + $scope.sidLast8)});
                         });
                         break;
-                    case "MRHSession": 
+                    case "MRHSession":
                         $scope.sid = cookies[i].value;
                         var tempIdx = $scope.sid.length-8;
                         $scope.sidLabel = $scope.sid.slice(0,tempIdx) + " <strong style='margin-left:-2px;'>" + $scope.sid.slice(tempIdx) + "</strong>";
