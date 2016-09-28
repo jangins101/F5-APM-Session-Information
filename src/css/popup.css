@@ -44,3 +44,8 @@ table thead tr {
 table tbody tr:hover, li:hover {
     background-color: rgba(255, 248, 161, 0.25);
 }
+
+.min20 { width:20%; min-width: 20%; }
+.min50 { width:50%; min-width: 50%; }
+.max25 { max-width: 25%; }
+.hl { background-color: rgba(200,200,0,.1); border: solid 1px #CCC;}

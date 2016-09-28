@@ -48,9 +48,9 @@
                 <tbody>
                     <tr ng-repeat="cookie in cookies" data-value="{{cookie | json}}">
                         <td><button type="button" class="btn btn-default btn-xs" ng-click="deleteCookie(cookie)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
-                        <td nowrap>{{cookie.name}}</td>
-                        <td nowrap>{{cookie.domain}}</td>
-                        <td>{{cookie.value}}<span ng-show="cookie.persistence"><br /><em>{{cookie.persistence}}</em></span></td>
+                        <td class="min20">{{cookie.name}}</td>
+                        <td class="min20">{{cookie.domain}}</td>
+                        <td class="min50">{{cookie.value}}<span ng-show="cookie.persistence"><br /><em class="label label-info" title="Decoded persistence cookie value">{{cookie.persistence}}</em></span></td>
                     </tr>
                 </tbody>
             </table>
