@@ -1,25 +1,29 @@
-# F5 APM Session Information Chrome Extension
+#### F5 Debugging Chrome Extension
 
-The point of this project was to create a Chrome extension that will show useful information about an APM session, including the decoded url and/or the APM cookie information.
+If you've ever troubleshooted **APM Portal Access** issues, you know how annoying it can be to find the decoded internal url.
 
-Example:
+This chrome extension seeks to make that quick and easy by showing the decoded information. It will also display the cookies for that site (including the ever-useful `MRHSession` and `LastMRH_Session` cookies) and allows you to delete cookies directly from the extension (useful for testing how cookies affect different pages).
+
+*Example:*
 
 * When accessing a url like `https://www.example.com/f5-w-68747470733A2F2F6D79736974652E696E7465726E616C2E6C6F63616C$$/index.html`, the extension will be enabled and clicking on the icon will display a popup that show the decoded information (i.e. that the internal url will be `https://mysite.internal.local/index.html`). 
-* When accessing a url like https://www.example.com/ that uses an APM access profile and there's an MRHSession cookie, the extension will list the known cookies available for that url.
+* When accessing a url like https://www.example.com/ that uses an APM access profile and there's an `MRHSession` cookie, the extension will list the known cookies available for that url.
 
-# Installation instructions
+#### Installation instructions
+As Chrome doesn't really like unpublished extensions, and it's not in the _Chrome App Store_ (yet), you'll have to install the extension in **Developer Mode**.
+
 Currently, this extension is not in the Chrome App Store, but you can sideload it into Chrome.
 
 * Navigate to `chrome://extensions`
 * Ensure that the `Developer mode` checkbox is enabled
-* Sub-Method 1: Load unpacked extension
+* Sub-Method 1: Load unpacked extension (***prefered***)
   * Click the `Load unpacked extension` button and select the folder that contains the source
-* Sub-Method 2: Load the *crx* file
+* Sub-Method 2: Load the *crx* file (***not always latest version***)
   * From the file system, click and drag the `.crx` file onto the extension page to begin the installation.
 
 Once you have completed the installation, you will notice the icon grayed somewhere beside the address bar. The icon is only enabled on sites whose url address contain `f5-w-` (denoting an APM encoded url) or where there's an MRHSession cookie.
 
-# Version History
+#### Version History
 * 1.1 - Initial version
   * Includes APM portal access decoded url information
 * 1.2 - 2016.04.01
@@ -35,7 +39,7 @@ Once you have completed the installation, you will notice the icon grayed somewh
 * 1.5.1 - 2016.09.18
   * Updated the icon, and removed APM and replaced with debugging icon since this has morphed to APM and LTM usefulness
 
-# Roadmap
+#### Roadmap
 * Finish the response header section that should enable the extension (i.e. expected Server header value)
 * Introduce forced enabling on user-specified domain
 * Add ability to specify the admin url so we can add direct links to specific pages (e.g. APM session report)
