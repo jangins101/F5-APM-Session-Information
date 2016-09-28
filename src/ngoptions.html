@@ -21,31 +21,44 @@
                 </div>
             </div>
         </nav>
-
+        
         <form  style="width:95%; max-width:800px; margin:0 auto; padding:5px;">
+            
+            <!-- Send Custom Header -->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Send custom header on HTTP requests</h3>
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-info" role="alert">
+                        Functionality enabled through this section requires the extension being enabled (i.e. discovering an F5 site)
+                    </div>
+                    
                     <div class="checkbox">
-                        <label for="cbEnableDebug"><input type="checkbox" id="cbEnableDebug" ng-model="options.enableDebug"> Enabled</label>
+                        <label for="cbEnableDebug"><input type="checkbox" id="cbEnableDebug" ng-model="options.enableDebug"> <strong>Enabled</strong> <!--<em><small>(Debug header will be sent on every request to domains listed below. This will include any domain if none are listed below.)</small></em>--></label>
+                        <!--
+                        <br />
+                        <label for="cbEnableDebugStrict" title="Check this box if you only want to send the debug headers on known F5 sites or sites specified in the Included Domains list below"><input type="checkbox" id="cbEnableDebugStrict" ng-model="options.enableDebugStrict"> <strong>Strict Mode</strong> <em><small>(If this option is enabled, only discovered F5 requests going to domains specified in the list below will include the header.)</small></em></label>
+                        -->
                     </div>
                     <div class="form-group">
                         <label for="txtDebugHeaderName">Header Name:</label>
-                        <input type="text" id="txtDebugHeaderName" placeholder="Expected debug header name" ng-model="options.debugHeaderName" class="form-control">
+                        <input type="text" id="txtDebugHeaderName" placeholder="Debug header name" ng-model="options.debugHeaderName" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="txtDebugHeaderValue">Header Value:</label>
-                        <input type="text" id="txtDebugHeaderValue" placeholder="Expected debug header value" ng-model="options.debugHeaderValue" class="form-control">
+                        <input type="text" id="txtDebugHeaderValue" placeholder="Debug header value" ng-model="options.debugHeaderValue" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="txtDebugIncludedDomains">Enabled url filtering:</label>
+                        <label for="txtDebugIncludedDomains">Hostname/Domain filtering <em><small>(comma separated)</small></em>:</label>
                         <textarea id="txtDebugIncludedDomains" placeholder="Included debug domains (separated by comma)" ng-model="options.debugDomains" class="form-control"></textarea>
-                        <div class="text-right"><em><small>(NOTE: wildcards are not currently allowed. Allowed domains MUST match hostname exactly)</small></em></div>
+                        <div class="text-right"><em><small>(NOTE: Wildcards are not currently allowed. Allowed domains MUST match hostname exactly)</small></em></div>
                     </div>
                 </div>
             </div>
+            <!-- END Send Custom Header -->
+            
+            <!-- Enable extension on response Server header value -->
             <!-- Not implemented yet -->
             <div class="panel panel-default" style="display:none;">
                 <div class="panel-heading">
@@ -56,11 +69,15 @@
                         <label for="cbEnableOnHeaderServer"><input type="checkbox" id="cbEnableOnHeaderServer" ng-model="options.enableOnHeaderServer"> Enabled</label>
                     </div>
                     <div class="form-group">
-                        <label for="txtOnHeaderServerValue">Header Name:</label>
+                        <label for="txtOnHeaderServerValue">Expected <em>Server</em> Value:</label>
                         <input type="text" id="txtOnHeaderServerValue" placeholder="Expected 'Server' header value" ng-model="options.onHeaderServerValue" class="form-control">
                     </div>
                 </div>
             </div>
+            <!-- END Enable extension on response Server header value -->
+            
+            <!-- TODO: Build functionality to specify certain hostnames that are to always be considered F5 and that the extension should be enabled regardless -->
+            
             <div class="form-group text-center">
                 <button class="btn btn-primary btn-lg" id="saveSettings" ng-click="save()">Save</button>
                 <button class="btn btn-danger btn-lg" id="cancelSettings" ng-click="cancel()">Cancel</button>

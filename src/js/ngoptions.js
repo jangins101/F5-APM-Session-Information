@@ -18,40 +18,32 @@ app.controller('optionsCtrl', function($scope, $timeout, optionsStorage) {
             //$scope.$apply();
         });
     };
-    $scope.clearAlertIn = function(sec) {
+    $scope.alertFor = function(timeout, cssClass, msg) {
+        $scope.alert.active = true;
+        $scope.alert.class = cssClass;
+        $scope.alert.message = msg;
+        
         $timeout(function() {
             $scope.alert.active = false;
             $scope.alert.class = "";
             $scope.alert.message = "";
-        }, 5000);
+        }, timeout);
     };
     $scope.save = function() {
         console.log("save: options saved");
         optionsStorage.save($scope.options);
-
-        $scope.alert.active = true;
-        $scope.alert.class = 'alert-success';
-        $scope.alert.message = 'Settings saved';
-        $scope.clearAlertIn(5000);
+        $scope.alertFor(5000, 'alert-success', 'Settings saved');
     };
     $scope.cancel = function() {
         console.log("cancel: options update cancelled");
         $scope.reload();
-
-        $scope.alert.active = true;
-        $scope.alert.class = 'alert-danger';
-        $scope.alert.message = 'Changed cancelled';
-        $scope.clearAlertIn(5000);
+        $scope.alertFor(5000, 'alert-danger', 'Changed cancelled');
     }
     $scope.reset = function() {
         console.log("reset: options reset to default");
         $scope.optionsStorage.reset();
         $scope.reload();
-
-        $scope.alert.active = true;
-        $scope.alert.class = 'alert-warning';
-        $scope.alert.message = 'Settings reset to default values';
-        $scope.clearAlertIn(5000);
+        $scope.alertFor(5000, 'alert-warning', 'Settings reset to default values');
     }
 
     // Initally load the stuff
