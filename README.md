@@ -38,4 +38,4 @@ Once you have completed the installation, you will notice the icon grayed somewh
 # Roadmap
 * Finish the response header section that should enable the extension (i.e. expected Server header value)
 * Introduce forced enabling on user-specified domain
-  
+* Add ability to specify the admin url so we can add direct links to specific pages (e.g. APM session report)
