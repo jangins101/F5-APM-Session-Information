@@ -32,7 +32,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // Check for known F5 cookies (including persistence cookies)
     chrome.cookies.getAll({url: tab.url}, function(cookies) {
         for(var i=0;i<cookies.length;i++) {
-            if (cookies[i].name == "MRHSession" || cookies[i].name.indexOf("BIGipServer") == 0) {
+            if (cookies[i].name == "MRHSession" || cookies[i].name.indexOf("BIGipServer") == 0 || cookies[i].value.match(/\d{9}\.\d{5}\.\d{4}/)) {
                 enableExtension(tabId);
             } else if (cookies[i].name == "LastMRH_Session" && !tipSid) {
                 tooltip += 'Last 8 Sid: ' + cookies[i].value;

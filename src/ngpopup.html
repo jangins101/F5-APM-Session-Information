@@ -50,12 +50,19 @@
                         <td><button type="button" class="btn btn-default btn-xs" ng-click="deleteCookie(cookie)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
                         <td class="min20">{{cookie.name}}</td>
                         <td class="min20">{{cookie.domain}}</td>
-                        <td class="min50">{{cookie.value}}<span ng-show="cookie.persistence"><br /><em class="label label-info" title="Decoded persistence cookie value">{{cookie.persistence}}</em></span></td>
+                        <td class="min50">
+                            {{cookie.value}}
+                            <span ng-show="cookie.name == 'LastMRH_Session'">
+                                <a style="display:block;" ng-href="{{sessionLink}}" ng-alt="sessionLink" target="_blank"><em class="label label-info">Session Report</em></a>
+                            </span>
+                            <span ng-show="cookie.persistence">
+                                <br /><em class="label label-info" title="Decoded persistence cookie value">{{cookie.persistence}}</em>
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
         <script src="./js/angular.min.js" type="application/javascript"></script>
         <script src="./js/ngpopup.js" type="application/javascript"></script>
     </body>
