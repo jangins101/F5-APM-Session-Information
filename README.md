@@ -38,8 +38,13 @@ Once you have completed the installation, you will notice the icon grayed somewh
   * Enabled the options page again, and finished code to allow the extension to add a header to requests on specific domains (user specified)
 * 1.5.1 - 2016.09.18
   * Updated the icon, and removed APM and replaced with debugging icon since this has morphed to APM and LTM usefulness
+* 1.6 - 2016.12.19
+  * Update icon enabled to include cookies that appear to be encoded persistance cookiess
+  * Added link within popup to open session details page on management gui (if enabled in options page)
+    * TODO: Add option to enable link only for specific domains (i.e. known internal domains)
+  
 
 #### Roadmap
 * Finish the response header section that should enable the extension (i.e. expected Server header value)
 * Introduce forced enabling on user-specified domain
-* Add ability to specify the admin url so we can add direct links to specific pages (e.g. APM session report)
+* Add ability to specify the admin url so we can add direct links to specific pages

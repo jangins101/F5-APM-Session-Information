@@ -34,6 +34,10 @@ var defSettings = {
     debugHeaderValue: "1",
     debugDomains: "",
 
+    // Add Session Report Link
+    enableSessionLink: false,
+    mgmtUrl: "",
+
     // Enable the extension on a given header value for the Server header
     enableOnHeaderServer: false,
     onHeaderServerValue: "Bigip"
@@ -44,3 +48,5 @@ function LoadSetting(name) {
 function SetSetting(name, value) {
     localStorage[storagePrefix + name] = value;
 }
+
+

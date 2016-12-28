@@ -43,6 +43,7 @@ app.filter('trust', ['$sce', function($sce){
     }])
 app.controller('popupCtrl', function($scope) {
     $scope.tab = null;
+    $scope.sessionLink = "asdfasd";
 
     // APM rewriter stuff
     $scope.rewrite = {
@@ -90,13 +91,25 @@ app.controller('popupCtrl', function($scope) {
         chrome.cookies.getAll({url: $scope.tab.url}, function(cookies) {
             for (var i=0;i<cookies.length;i++) {
                 // Check for persistence cookie
-                cookies[i].persistence = (cookies[i].name.indexOf("BIGipServer") == 0
+                cookies[i].persistence = (cookies[i].name.indexOf("BIGipServer") == 0 || cookies[i].value.match(/\d{9}\.\d{5}\.\d{4}/)
                                           ? decodeF5PersistenceCookie(cookies[i].value)
                                           : null);
 
                 switch (cookies[i].name) {
                     case "LastMRH_Session":
                         $scope.sidLast8 = cookies[i].value;
+                        $scope.sessionLink = "changed 01";
+                        chrome.storage.sync.get('options', function(keys) {
+                            $scope.sessionLink = "changed 02";
+                            if (keys.options.enableSessionLink && keys.options.mgmtUrl != "") {
+                                // Force UI apply
+                                $scope.$apply(function(){
+                                    //$scope.sessionLink = keys.options.mgmtUrl + "/tmui/Control/jspmap/tmui/overview/reports/current_sessions.jsp?&SearchString=*" + $scope.sidLast8 + "*";
+                                    $scope.sessionLink = keys.options.mgmtUrl + "/sam/admin/reports/index.php?showSessionDetails=2&sid=" + $scope.sidLast8;
+                                });
+                            }
+                        });
+
                         chrome.pageAction.getTitle({tabId: $scope.tab.id}, function(title){
                             if (title && title.length > 0) { title += "\n"; }
                             chrome.pageAction.setTitle({tabId: $scope.tab.id, title: (title + "Last 8 sid: " + $scope.sidLast8)});

@@ -58,6 +58,27 @@
             </div>
             <!-- END Send Custom Header -->
             
+            <!-- Add Session Report Link -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Report Link For Session</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-info" role="alert">
+                        When enabled, the <em>MRHSession</em> cookie listed will contain a link to open the management gui to the corresponding session report page.
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="cbEnableSessionLink"><input type="checkbox" id="cbEnableSessionLink" ng-model="options.enableSessionLink"> <strong>Enabled</strong></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDebugHeaderName">BIG-IP Managment GUI Url:</label>
+                        <input type="text" id="txtMgmtUrl" placeholder="https://bigip.domain.local" ng-model="options.mgmtUrl" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <!-- END Add Session Report Link -->
+
             <!-- Enable extension on response Server header value -->
             <!-- Not implemented yet -->
             <div class="panel panel-default" style="display:none;">
