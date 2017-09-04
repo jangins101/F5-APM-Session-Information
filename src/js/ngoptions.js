@@ -10,6 +10,12 @@ app.controller('optionsCtrl', function($scope, $timeout, optionsStorage) {
         //$scope.$apply();
     });
 
+    $scope.getHosts = function() {
+        var lsn = "F5ApmExtensionSettings_usesF5";
+        var hosts = chrome.extension.getBackgroundPage().localStorage[lsn];
+        var hostsArray = (hosts || "").split(/[,;]/).sort();
+        return hostsArray;
+    };
     $scope.reload = function() {
         $scope.optionsStorage.load(function(data) {
             console.log("reload: options loaded");
