@@ -79,6 +79,25 @@
             </div>
             <!-- END Add Session Report Link -->
 
+
+            <!-- Add List of Known F5 Sites -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">List Known F5 Sites <small><strong>({{getHosts().length}}</strong> discovered)</small></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-info" role="alert">
+                        The following list includes all sites that are known to be using F5 BigIP (based on where the user has gone and the extension has noticed).
+                    </div>
+                    <ul ng-init="hosts = getHosts()">
+                        <li ng-repeat="host in hosts track by $index" data-value="{{host}}">
+                            <a style="display:block;min-width:150px;" ng-href="https://{{host}}" target="_blank">{{host}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END Add Session Report Link -->
+
             <!-- Enable extension on response Server header value -->
             <!-- Not implemented yet -->
             <div class="panel panel-default" style="display:none;">

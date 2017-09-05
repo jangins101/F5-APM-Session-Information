@@ -8,6 +8,17 @@ function enableExtension(tabId, title) {
     // REF: https://developer.chrome.com/extensions/pageAction
     chrome.pageAction.show(tabId);
     isF5[tabId] = true;
+
+    // Log that this domain uses F5
+    chrome.tabs.get(tabId, function(tab) {
+        debugger;
+        var h = tab.url.match(/:\/\/([^/]*)/)[1];
+        console.log(h);
+        var lsn = "F5ApmExtensionSettings_usesF5";
+
+        if (!localStorage[lsn] ) { localStorage[lsn] = "" }
+        if (localStorage[lsn].indexOf(h) < 0) { localStorage[lsn] += "," + h; }
+    });
 }
 
 // Whenever a tab is updated, this method will be called
