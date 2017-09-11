@@ -42,6 +42,8 @@ Once you have completed the installation, you will notice the icon grayed somewh
   * Update icon enabled to include cookies that appear to be encoded persistance cookiess
   * Added link within popup to open session details page on management gui (if enabled in options page)
     * TODO: Add option to enable link only for specific domains (i.e. known internal domains)
+* 1.7 - 2017.09.03
+  * Added local tracking of sites that appear to use F5 BigIP
   
 
 #### Roadmap
